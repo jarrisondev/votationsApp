@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-screen bg-slate-800">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Dash</title>
+	</head>
+	<body class="flex flex-col justify-center items-center min-h-screen">
+		<div class="w-full max-w-5xl px-16 py-5 bg-slate-100 rounded-xl flex flex-col items-center">
+			<h1 class="text-2xl text-center font-bold">Dash</h1>
+			<br />
+
+			<ul class="list-disc">
+				<li>
+					<a class="p-2 underline" href="{% url  'users' %}">Usuarios</a>
+				</li>
+				<li>
+					<a class="p-2 underline" href="{% url  'users' %}">Grupos de votación</a>
+				</li>
+				<li>
+					<a class="p-2 underline" href="{% url  'users' %}">Resultados</a>
+				</li>
+			</ul>
+
+			<br />
+		</div>
+	</body>
+</html>

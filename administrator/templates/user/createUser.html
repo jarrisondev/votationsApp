@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-screen bg-slate-800">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Crear Usuario</title>
+	</head>
+	<body class="flex flex-col justify-center items-center min-h-screen">
+		<div class="w-full max-w-5xl px-16 py-5 bg-slate-100 rounded-xl">
+			<h1 class="text-2xl text-center font-bold">Crear Usuario</h1>
+			<br />
+			<form class="mt-10 flex flex-col gap-24" action="" method="POST">
+				{% csrf_token %} {{ form.as_p }}
+				<div class="flex justify-between">
+					<div class="flex flex-col gap-7">
+						<label>
+							<p>Nombre:</p>
+							<input
+								class="border-slate-500 h-8 border-2 rounded-md"
+								type="text"
+								name="name"
+								placeholder="Nombre"
+							/>
+						</label>
+						<label>
+							<p>Apellido:</p>
+							<input
+								class="border-slate-500 h-8 border-2 rounded-md"
+								type="text"
+								name="lastName"
+								placeholder="Apellido"
+							/>
+						</label>
+						<label>
+							<p>Identificación:</p>
+							<input
+								class="border-slate-500 h-8 border-2 rounded-md"
+								type="number"
+								name="dni"
+								placeholder="Identificación"
+							/>
+						</label>
+					</div>
+					<div class="flex flex-col gap-7">
+						<label>
+							<p>Rol:</p>
+							<select name="idRol">
+								{% for x in roles %}
+								<option value="{{ x.id }}">{{ x.name }}</option>
+								{% endfor %}
+							</select>
+						</label>
+						<label>
+							<p>Contraseña:</p>
+							<input
+								class="border-slate-500 h-8 border-2 rounded-md"
+								type="text"
+								name="password"
+								placeholder="Contraseña"
+							/>
+						</label>
+					</div>
+				</div>
+				<div class="flex gap-7 justify-center">
+					<input
+						class="p-2 bg-slate-600 text-white rounded-md cursor-pointer"
+						type="submit"
+						value="Crear Usuario"
+					/>
+					<a class="p-2 bg-slate-200 rounded-md" href="{% url  'users' %}">Volver Atrás</a>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
