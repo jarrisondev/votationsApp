@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-screen bg-slate-800">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Actualizar grupo de votación</title>
+	</head>
+	<body class="flex flex-col justify-center items-center min-h-screen">
+		<div class="w-full max-w-5xl px-16 py-5 bg-slate-100 rounded-xl">
+			<h1 class="text-2xl text-center font-bold">Actualizar grupo de votación</h1>
+			<br />
+			<form class="mt-10 flex flex-col gap-24" action="" method="POST">
+				{% csrf_token %} {{ form.as_p }}
+				<div class="flex justify-between">
+					<div class="flex flex-col gap-7">
+						<label>
+							<p>Nombre:</p>
+							<input
+								type="text"
+								name="name"
+								placeholder="Nombre"
+								value="{{ group.name }}"
+								class="border-slate-500 h-8 border-2 rounded-md"
+							/>
+						</label>
+						<label>
+							<p>Descripción:</p>
+							<textarea
+								cols="30"
+								name="description"
+								class="border-slate-500 h-8 border-2 rounded-md"
+								placeholder="Descripción"
+							>
+{{ group.description }}
+							</textarea
+							>
+						</label>
+						<label>
+							<p>Fecha de inicio:</p>
+							<input
+								type="date"
+								name="start_date"
+								placeholder="Fecha de inicio"
+								value="{{ group.start_date }}"
+								class="border-slate-500 h-8 border-2 rounded-md"
+							/>
+						</label>
+					</div>
+					<div class="flex flex-col gap-7">
+						<label>
+							<p>Fecha de finalización:</p>
+							<input
+								type="date"
+								name="end_date"
+								value="{{ group.end_date }}"
+								placeholder="Fecha de finalización"
+								class="border-slate-500 h-8 border-2 rounded-md"
+							/>
+						</label>
+						<label>
+							<p>Activo:</p>
+							<input
+								name="active"
+								type="checkbox"
+								checked="{{ group.active }}"
+								class="border-slate-500 h-8 border-2 rounded-md"
+							/>
+						</label>
+					</div>
+				</div>
+				<div class="flex gap-7 justify-center">
+					<input class="p-2 bg-slate-600 text-white rounded-md cursor-pointer" type="submit" value="Actualizar Grupo" />
+					<a class="p-2 bg-slate-200 rounded-md" href="{% url  'groups' %}">Volver Atrás</a>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

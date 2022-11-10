@@ -1,4 +1,4 @@
-from .models import User, Rol
+from .models import User, Rol, VotationGroup
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 
@@ -17,6 +17,7 @@ def users(request):
     'users' : users
   }
   return render(request, 'user/users.html', context)
+
 
 def createUser(request: HttpRequest):
   
@@ -40,6 +41,7 @@ def createUser(request: HttpRequest):
   }
 
   return render(request, 'user/createUser.html', context)
+
 
 def updateUser(request: HttpRequest, id):
   
@@ -67,10 +69,74 @@ def updateUser(request: HttpRequest, id):
 
   return render(request, 'user/updateUser.html', context)
 
+
 def deleteUser (request: HttpRequest, id):
   user = User.objects.get(id=id)
   user.delete()
 
   return redirect('/administrator/users/')
     
+
+# groups
+def groups(request):
+  groups = VotationGroup.objects.all().values()
+
+  context = {
+    'groups' : groups
+  }
+  return render(request, 'votationGroups/groups.html', context)
+
+
+def createGroup(request: HttpRequest):
+  
+  if(request.method == 'POST'):
+    name = request.POST.get('name')
+    description = request.POST.get('description')
+    start_date = request.POST.get('start_date')
+    end_date = request.POST.get('end_date')
+    active =  bool(request.POST.get('active')) 
+       
+    group = VotationGroup(name=name, description=description, start_date=start_date, end_date=end_date, active=active)
+    group.save()
+    return redirect('/administrator/groups/')
+
+  return render(request, 'votationGroups/createGroup.html')
+
+
+def updateGroup(request: HttpRequest, id):
+  
+  group = VotationGroup.objects.get(id=id)
+  group.start_date = group.start_date.strftime("%Y-%m-%d")
+  group.end_date = group.end_date.strftime("%Y-%m-%d")
+
+  if(request.method == 'POST'):
+    name = request.POST.get('name')
+    description = request.POST.get('description')
+    start_date = request.POST.get('start_date')
+    end_date = request.POST.get('end_date')
+    active = request.POST.get('active')
+
+    group.name = name
+    group.description = description
+    group.start_date = start_date
+    group.end_date = end_date
+    group.active = active
+    group.save()
+
+    return redirect('/administrator/groups/')
+
+  context = {
+    'group': group,
+  }
+
+  return render(request, 'votationGroups/updateGroup.html', context)
+
+
+def deleteGroup (request: HttpRequest, id):
+  group = VotationGroup.objects.get(id=id)
+  group.delete()
+
+  return redirect('/administrator/groups/')
+    
+        
     

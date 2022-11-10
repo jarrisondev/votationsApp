@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-screen bg-slate-800">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<title>Grupos de votación</title>
+	</head>
+	<body class="flex flex-col justify-center items-center min-h-screen">
+		<div class="w-full max-w-5xl px-16 py-5 bg-slate-100 rounded-xl flex flex-col items-center">
+			<h1 class="text-2xl text-center font-bold">Grupos de votación</h1>
+			<br />
+			<table class="table-auto w-full">
+				{% for x in groups %}
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Fecha de inicio</th>
+						<th>Fecha de finalización</th>
+						<th>Activo</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-center">
+						<td>{{ x.id }}</td>
+						<td>{{ x.name }}</td>
+						<td title="{{x.description}}" class="w-16 cursor-help">{{ x.description|truncatechars:20 }}</td>
+						<td>{{ x.start_date }}</td>
+						<td>{{ x.end_date }}</td>
+						<td>{{ x.active }}</td>
+						<td class="flex flex-col">
+							<a class="text-slate-800" href="{% url 'updateGroup' x.id %}">Actualizar</a>
+							<a class="text-red-400" href="{% url 'deleteGroup' x.id %}">Eliminar</a>
+						</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+			</table>
+			<br />
+			<div class="flex gap-7">
+				<a class="p-2 bg-slate-600 text-white rounded-md" href="{% url  'createGroup' %}">Crear Grupo</a>
+				<a class="p-2 bg-slate-200 rounded-md" href="{% url  'dash' %}">Volver Atrás</a>
+			</div>
+		</div>
+	</body>
+</html>

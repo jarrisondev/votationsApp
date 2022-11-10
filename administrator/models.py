@@ -8,10 +8,9 @@ class Rol(models.Model):
 class VotationGroup(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=100)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateField()
+    end_date = models.DateField()
     active = models.BooleanField(default=True)
-
 
 class User (models.Model):
     name = models.CharField(max_length=500)
@@ -23,7 +22,6 @@ class User (models.Model):
 class Candidate(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idVotationGroup = models.ForeignKey(VotationGroup, on_delete=models.CASCADE)
-
 
 class Vote(models.Model):
     codCandidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
